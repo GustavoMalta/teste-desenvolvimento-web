@@ -1,5 +1,17 @@
 # Teste de Desenvolvimento Web
 
+Back end feito em Node.
+É necessario instlar primeiramente o Node. que pode ser baixado para qualser sistema em 
+- https://nodejs.org
+
+Na primeira execução é necessário instalar as dependencias:
+- npm -i
+
+Uma vez instaçado as dependencias execute o projeto com o comando:
+- npm start
+
+##############################
+
 Olá Dev! Tudo bem?
 
 A RedFox está sempre em busca de profissionais interessantes e interessados, com boa capacidade de aprendizado, adaptação e principalmente motivação!
