@@ -17,42 +17,18 @@ export default function PokeDetail(){
     } 
     loadPoke();
   },[]);
-
+  
+  if(!pokemon){ // Delay para home denovo
+    return(
+      <div>
+        Nao encontrado
+      </div>
+    )
+  }
 
   console.log(pokemon);
   console.log(id);
 return(
-
-    {/*<div className="">
-        <th>Pokedex Number</th>
-        <th>Img name</th>
-        <th>Generation</th>
-        <th>Evolution Stage</th>
-        <th>Evolved</th>
-        <th>FamilyID</th>
-        <th>Cross Gen</th>
-        <th>Type 1</th>
-        <th>Type 2</th>
-        <th>Weather 1</th>
-        <th>Weather 2</th>
-        <th>STAT TOTAL</th>
-        <th>ATK</th>
-        <th>DEF</th>
-        <th>STA</th>
-        <th>Legendary</th>
-        <th>Aquireable</th>
-        <th>Spawns</th>
-        <th>Regional</th>
-        <th>Raidable</th>
-        <th>Hatchable</th>
-        <th>Shiny</th>
-        <th>Nest</th>
-        <th>New</th>
-        <th>No- Gettable</th>
-        <th>Future Evolve</th>
-        <th>100% CP @ 40</th>
-        <th>100% CP @ 39</th>
-</div>*/},
       <div className="card my-5 shadow">
         <div className="cart-title p-4">
           <h3>{pokemon["Name"]}</h3>
@@ -64,13 +40,9 @@ return(
              alt={pokemon["Name"]}
              width="250"/>
         </div>
-        <div className="col-12 col-sm-6"> 
-          <div className="row col-12">
-            <strong>STAT TOTAL: </strong>
-            <p>{pokemon["STAT TOTAL"]}</p>
-          </div>
+        <div className="col-12 col-sm-6 row"> 
           <div className="row col-12 col-sm-4">
-            <strong>ATKn: </strong>
+            <strong>ATK: </strong>
             <p>{pokemon["ATK"]}</p>
           </div>
           <div className="row col-12 col-sm-4">
@@ -81,9 +53,12 @@ return(
             <strong>STA: </strong>
             <p>{pokemon["STA"]}</p>
           </div>
+          <div className="row col-12">
+            <strong>STAT TOTAL: </strong>
+            <p>{pokemon["STAT TOTAL"]}</p>
+          </div>
         </div>
         </div>
-        
         
 
 
@@ -96,7 +71,6 @@ return(
             <strong>Weather: </strong>
             <p>{pokemon["Weather 1"]} {pokemon["Weather 1"]?'/'+pokemon["Weather 1"]:''}</p>
           </div>
-        
 
           <div className="row col-12 col-sm-6">
             <strong>Generation: </strong>
@@ -118,24 +92,60 @@ return(
             <strong>Cross Generation: </strong>
             <p>{pokemon["Cross Gen"]}</p>
           </div>
-        
-        
-      
+          <div className="row col-12 col-sm-6">        
+          <strong>Legendary: </strong>
+            <p>{pokemon["Legendary"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Aquireable: </strong>
+            <p>{pokemon["Aquireable"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Spawns: </strong>
+            <p>{pokemon["Spawns"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Regional: </strong>
+            <p>{pokemon["Regional"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Raidable: </strong>
+            <p>{pokemon["Raidable"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Hatchable: </strong>
+            <p>{pokemon["Hatchable"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Shiny: </strong>
+            <p>{pokemon["Shiny"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Nest: </strong>
+            <p>{pokemon["Nest"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>New: </strong>
+            <p>{pokemon["New"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>No- Gettable: </strong>
+            <p>{pokemon["No- Gettable"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>Future Evolve: </strong>
+            <p>{pokemon["Future Evolve"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>100% CP @ 40: </strong>
+            <p>{pokemon["100% CP @ 40"]}</p>
+          </div>
+          <div className="row col-12 col-sm-6">
+            <strong>100% CP @ 39: </strong>
+            <p>{pokemon["100% CP @ 39"]}</p>
+          </div>
+
         </div>
-        
-        <td>{pokemon["Legendary"]}</td>
-        <td>{pokemon["Aquireable"]}</td>
-        <td>{pokemon["Spawns"]}</td>
-        <td>{pokemon["Regional"]}</td>
-        <td>{pokemon["Raidable"]}</td>
-        <td>{pokemon["Hatchable"]}</td>
-        <td>{pokemon["Shiny"]}</td>
-        <td>{pokemon["Nest"]}</td>
-        <td>{pokemon["New"]}</td>
-        <td>{pokemon["No- Gettable"]}</td>
-        <td>{pokemon["Future Evolve"]}</td>
-        <td>{pokemon["100% CP @ 40"]}</td>
-        <td>{pokemon["100% CP @ 39"]}</td>
         </div>
       
 );

@@ -29,6 +29,9 @@ export default function PokeList(){
     history.push('/pokemon/'+id)
     console.log(id);
   }
+  async function handleToInsert(){
+    history.push('/pokemon/create')
+  }
 
   async function handleDelete(data){
     console.log(data)
@@ -47,7 +50,9 @@ export default function PokeList(){
     <div className="card my-5 shadow">
       
     <div id="app" className="col-12 d-flex justify-content-center">
-    
+    <button type="button" className="btn btn-success" onClick={() =>handleToInsert()}>
+      Create New
+    </button>
     <main>
       <table className="table table-striped">
         <thead>
