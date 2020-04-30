@@ -7,7 +7,7 @@ import api from "../../services/api";
 
 
 export default function PokeList(){
-    
+    const history = useHistory();
     const [pokemons, setPokemons] = useState([]);
 
     useEffect(() =>{
@@ -26,7 +26,8 @@ export default function PokeList(){
   }
 
   async function handleToDetail(id){
-      console.log(id);
+    history.push('/pokemon/'+id)
+    console.log(id);
   }
 
   async function handleDelete(data){
@@ -43,6 +44,8 @@ export default function PokeList(){
   }
 
   return(
+    <div className="card my-5 shadow">
+      
     <div id="app" className="col-12 d-flex justify-content-center">
     
     <main>
@@ -79,6 +82,8 @@ export default function PokeList(){
       </table>
 
     </main>
+    </div>
+
     </div>
   )
 
