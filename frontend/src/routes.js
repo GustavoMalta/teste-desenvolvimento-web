@@ -12,7 +12,7 @@ export default function Routes(){
         <Switch>
             <Route path="/" exact component={PokeList}/>
             <Route path="/Pokemon/:id" component={PokeDetail}/>
-            <Route path="/NewPokemon" component={PokeInsert}/>
+            <Route path="/CreatePokemon" component={PokeInsert}/>
             {/*<Route path="/profile" component={Profile}/>
             <Route path="/incident/new" component={NewIncident}/>*/}
         </Switch>

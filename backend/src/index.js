@@ -5,8 +5,8 @@ const cors = require('cors');
 
 const app = express();
 
-               
-mongoose.connect('mongodb+srv://pokeuser:pokepassword@pokeredfox-8ofck.mongodb.net/pokemon?retryWrites=true&w=majority',{
+                  //mongodb+srv://pokeuser:pokepassword@pokeredfox-8ofck.mongodb.net/test?retryWrites=true&w=majority
+mongoose.connect('mongodb+srv://pokeuser:pokepassword@redfox-hcna2.mongodb.net/test?retryWrites=true&w=majority',{
     useNewUrlParser: true, 
     useUnifiedTopology: true 
 });

@@ -1,13 +1,14 @@
 import React,{useEffect, useState} from 'react';
-import {Link, useHistory, useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 
 import './styles.css';
-import { FiPower, FiTrash2 } from 'react-icons/fi';
+//import { FiPower, FiTrash2 } from 'react-icons/fi';
 import api from "../../services/api";
 
 
 export default function PokeDetail(){
   const {id} = useParams();
+  const history = useHistory();
 
   const [pokemon, setPokemon] = useState([]);
   useEffect(() =>{
@@ -18,6 +19,14 @@ export default function PokeDetail(){
     loadPoke();
   },[]);
   
+  async function handleDelete(data){
+    console.log(data)
+    const response = await api.delete('/pokemon/'+data);
+    
+    console.log(response.status);
+    history.push('/');
+  }
+
   if(!pokemon){ // Delay para home denovo
     return(
       <div>
@@ -25,18 +34,19 @@ export default function PokeDetail(){
       </div>
     )
   }
-
-  console.log(pokemon);
-  console.log(id);
 return(
-      <div className="card my-5 shadow">
-        <div className="cart-title p-4">
-          <h3>{pokemon["Name"]}</h3>
-          <h5 className="text-right"><strong>Pokedex Code: </strong>{pokemon["Pokedex Number"]}</h5>
+      <div className="card my-5 px-0 shadow col-md-7">
+        <div className="cart-title px-4 mb-4 shadow-sm">
+          <div className="py-3 d-flex justify-content-between">
+            <h3>{pokemon["Name"]}</h3>
+            <button className="btn btn-danger" onClick={() =>handleDelete(pokemon._id)}>Deletar</button>
+          </div>
+          <h5 className="text-right"><strong>Pokedex Code: </strong>{pokemon["Pokedex_Number"]}</h5>
         </div>
+        
         <div className="row container">
 <div className="col-12 col-sm-6"> 
-        <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemon["Img name"]}.png`}
+        <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemon["Img_name"]}.png`}
              alt={pokemon["Name"]}
              width="250"/>
         </div>
@@ -55,7 +65,7 @@ return(
           </div>
           <div className="row col-12">
             <strong>STAT TOTAL: </strong>
-            <p>{pokemon["STAT TOTAL"]}</p>
+            <p>{pokemon["STAT_TOTAL"]}</p>
           </div>
         </div>
         </div>
@@ -65,11 +75,11 @@ return(
         <div className="card-body row justify-content-center">
           <div className="row col-12 col-sm-6">
             <strong>Tipo: </strong>
-            <p>{pokemon["Type 1"]} {pokemon["Type 2"]?'/'+pokemon["Type 2"]:''}</p>
+            <p>{pokemon["Type_1"]} {pokemon["Type_2"]?'/'+pokemon["Type_2"]:''}</p>
           </div>
           <div className="row col-12 col-sm-6">
             <strong>Weather: </strong>
-            <p>{pokemon["Weather 1"]} {pokemon["Weather 1"]?'/'+pokemon["Weather 1"]:''}</p>
+            <p>{pokemon["Weather_1"]} {pokemon["Weather_1"]?'/'+pokemon["Weather_1"]:''}</p>
           </div>
 
           <div className="row col-12 col-sm-6">
@@ -78,7 +88,7 @@ return(
           </div>
           <div className="row col-12 col-sm-6">
             <strong>Evolution Stage: </strong>
-            <p>{pokemon["Evolution Stage"]}</p>
+            <p>{pokemon["Evolution_Stage"]}</p>
           </div>
           <div className="row col-12 col-sm-6">
             <strong>Evolved: </strong>
@@ -90,7 +100,7 @@ return(
           </div>
           <div className="row col-12 col-sm-6">
             <strong>Cross Generation: </strong>
-            <p>{pokemon["Cross Gen"]}</p>
+            <p>{pokemon["Cross_Gen"]}</p>
           </div>
           <div className="row col-12 col-sm-6">        
           <strong>Legendary: </strong>
@@ -130,19 +140,19 @@ return(
           </div>
           <div className="row col-12 col-sm-6">
             <strong>No- Gettable: </strong>
-            <p>{pokemon["No- Gettable"]}</p>
+            <p>{pokemon["No_Gettable"]}</p>
           </div>
           <div className="row col-12 col-sm-6">
             <strong>Future Evolve: </strong>
-            <p>{pokemon["Future Evolve"]}</p>
+            <p>{pokemon["Future_Evolve"]}</p>
           </div>
           <div className="row col-12 col-sm-6">
             <strong>100% CP @ 40: </strong>
-            <p>{pokemon["100% CP @ 40"]}</p>
+            <p>{pokemon["At40"]}</p>
           </div>
           <div className="row col-12 col-sm-6">
             <strong>100% CP @ 39: </strong>
-            <p>{pokemon["100% CP @ 39"]}</p>
+            <p>{pokemon["At39"]}</p>
           </div>
 
         </div>

@@ -13,6 +13,7 @@ export default function PokeList(){
     useEffect(() =>{
       async function loadPokes(){
         const response = await api.get('/Pokemons');
+        console.log(response.data.length)
         setPokemons(response.data);
       } 
       loadPokes();
@@ -30,20 +31,7 @@ export default function PokeList(){
     console.log(id);
   }
   async function handleToInsert(){
-    history.push('/pokemon/create')
-  }
-
-  async function handleDelete(data){
-    console.log(data)
-    const response = await api.delete('/devs/'+data._id);
-    
-    if(response.status==200){
-      const response = await api.get('/devs');
-      setPokemons(response.data);
-
-      console.log(response.data);
-    }
-    console.log(response.status);
+    history.push('/CreatePokemon');
   }
 
   return(
@@ -72,11 +60,11 @@ export default function PokeList(){
                     
                 <tr key={pokemon._id} className="pokelist" onClick={() =>handleToDetail(pokemon._id)}>
                         <td className="d-none" key={pokemon["_id"]}>{pokemon._id}</td>
-                        <td>{pokemon["Pokedex Number"]}</td>
-                        <td>{pokemon["Img name"]}</td>
+                        <td>{pokemon["Pokedex_Number"]}</td>
+                        <td>{pokemon["Img_name"]}</td>
                         <td>{pokemon["Name"]}</td>
-                        <td>{pokemon["Type 1"]}</td>
-                        <td>{pokemon["Type 2"]}</td>
+                        <td>{pokemon["Type_1"]}</td>
+                        <td>{pokemon["Type_2"]}</td>
                         <td>{pokemon["ATK"]}</td>
                         <td>{pokemon["DEF"]}</td>
                         <td>{pokemon["STA"]}</td>

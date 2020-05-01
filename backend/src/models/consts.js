@@ -20,7 +20,7 @@ const Consts = {
         "steel",
         "flying"
     ],
-    wheather:[
+    weather:[
         "Sunny/clear",
         "Rainy",
         "Partly cloudy",

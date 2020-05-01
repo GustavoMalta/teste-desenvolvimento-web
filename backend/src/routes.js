@@ -15,5 +15,7 @@ routes.get('/pokemon/:_id', PokeController.edit);
 routes.put('/pokemon/:_id', PokeController.update);
 routes.delete('/pokemon/:_id', PokeController.delete);
 
+routes.get('/types', PokeController.types);
+routes.get('/weathers', PokeController.weathers);
 
 module.exports = routes;

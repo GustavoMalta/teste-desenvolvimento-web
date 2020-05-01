@@ -1,5 +1,5 @@
 const Pokemon = require('../models/pokemon');
-const {types, wheather} = require('../models/consts');
+const {types, weather} = require('../models/consts');
 
 module.exports = {
     async index(req, res){
@@ -7,19 +7,41 @@ module.exports = {
         console.log(types);
         return res.json(Pokemons);
     },
+    async types(req, res){
+        const Types = types;
+        console.log(types);
+        return res.json(Types);
+    },
+    async weathers(req, res){
+        const Weather = weather;
+        console.log(Weather);
+        return res.json(Weather);
+    },
 
     async create(req, res){
         const data = req.body;
-        const pokedex = data["Pokedex Number"];
+        const pokedex = data["Pokedex_Number"];
     try{
+        let poke = await Pokemon.findOne({pokedex});
+            console.log("poke"+poke)
+        if (!poke){           //se nao encontrar na lista
         
-        let poke = await Pokemon.findOne({"Pokedex Number":data["Pokedex Number"]});//nao se se vai ser row
-            if (!poke){           //se nao encontrar na lista
-
-                //talves um get para imagem
-                    // verificar se o tipo existe na lista
-                poke = await Pokemon.create(data);
-                console.log ("Pokemon Criado");
+            const response = await Pokemon.find();
+            
+            
+            data.row = (response.data)?response.data.length+1:0;
+            data.Img_name = data.Pokedex_Number;
+            console.log("pokedex: " + data.Pokedex_Number.length)
+            while(data.Img_name.length<3){
+                data.Img_name = '0'+data.Img_name
+                console.log(data.Img_name)
+            }
+            
+            console.log("number: " + data.Pokedex_Number)
+            // talves um get para imagem
+            // verificar se o tipo existe na lista
+            poke = await Pokemon.create(data);
+            console.log ("Pokemon Criado");
 
             }else{
                 console.log ("Pokemon Ja existe com esse código Pokedex");
