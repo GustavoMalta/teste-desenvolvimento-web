@@ -65,12 +65,15 @@ export default function PokeInsert(){
 
     try{
         response = await api.post('/pokemons', data);
-    }catch{
-        alert(`Erro no cadastro: ${response.status}`)
+    }catch(err){
+      console.log(err)
+      alert(`Pokemon ja esta cadastrado`);
     }
-        alert(`Cadastrado com sucesso: ${response.data._id}`)
-        console.log(response);
-        history.push('/');
+    if(response){
+      alert(`${response.data.Name} Cadastrado com sucesso!!`)
+      history.push('/');
+    }
+      
   } 
 
 return(

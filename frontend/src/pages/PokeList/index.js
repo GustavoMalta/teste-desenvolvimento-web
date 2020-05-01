@@ -13,7 +13,7 @@ export default function PokeList(){
     useEffect(() =>{
       async function loadPokes(){
         const response = await api.get('/Pokemons');
-        console.log(response.data.length)
+        //console.log(this.props)
         setPokemons(response.data);
       } 
       loadPokes();
@@ -45,6 +45,7 @@ export default function PokeList(){
       <table className="table table-striped">
         <thead>
           <tr>
+              <th>Row</th>
               <th>Pokedex Number</th>
               <th>Img name</th>
               <th>Name</th>
@@ -60,7 +61,8 @@ export default function PokeList(){
                     
                 <tr key={pokemon._id} className="pokelist" onClick={() =>handleToDetail(pokemon._id)}>
                         <td className="d-none" key={pokemon["_id"]}>{pokemon._id}</td>
-                        <td>{pokemon["Pokedex_Number"]}</td>
+                        <td>{pokemon["Row"]}</td>
+                        <td>{pokemon.Pokedex_Number}</td>
                         <td>{pokemon["Img_name"]}</td>
                         <td>{pokemon["Name"]}</td>
                         <td>{pokemon["Type_1"]}</td>

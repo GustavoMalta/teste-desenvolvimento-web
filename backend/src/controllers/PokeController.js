@@ -3,8 +3,24 @@ const {types, weather} = require('../models/consts');
 
 module.exports = {
     async index(req, res){
-        const Pokemons = await Pokemon.find();
-        console.log(types);
+        const {page = 1 } = req.params;
+        console.log(page);
+        const Pokemons = await Pokemon.find()
+                                    .limit()
+                                    .skip(0);
+
+/*
+        res.header('X-Total-Count', count['count(*)']);
+
+        const pokes = await connection('incidents')
+        .join('ongs', 'ongs.id','=','incidents.ong_id')
+        .limit(5)
+        .offset((page-1)*5)
+        .select(['incidents.*','ongs.name','ongs.email','ongs.whatsapp','ongs.city','ongs.uf']);
+        console.log(test);
+        return res.json(test);
+*/
+
         return res.json(Pokemons);
     },
     async types(req, res){
@@ -20,21 +36,19 @@ module.exports = {
 
     async create(req, res){
         const data = req.body;
-        const pokedex = data["Pokedex_Number"];
+        const Pokedex_Number = data.Pokedex_Number;
     try{
-        let poke = await Pokemon.findOne({pokedex});
-            console.log("poke"+poke)
-        if (!poke){           //se nao encontrar na lista
+        let poke = await Pokemon.findOne({Pokedex_Number});
+            console.log("poke" + Pokedex_Number)
+        if (true){           //se nao encontrar na lista
         
             const response = await Pokemon.find();
             
-            
-            data.row = (response.data)?response.data.length+1:0;
+            data.Row = (response)?response.length+1:0;
             data.Img_name = data.Pokedex_Number;
             console.log("pokedex: " + data.Pokedex_Number.length)
             while(data.Img_name.length<3){
                 data.Img_name = '0'+data.Img_name
-                console.log(data.Img_name)
             }
             
             console.log("number: " + data.Pokedex_Number)
@@ -45,11 +59,13 @@ module.exports = {
 
             }else{
                 console.log ("Pokemon Ja existe com esse código Pokedex");
+                return res.status(401).json(poke)
             }
             
         return res.json(poke);
     }catch{
-        return res.json({});
+        return res.status(400).json({error:'operation not permited'});
+         
     }
     },
 
