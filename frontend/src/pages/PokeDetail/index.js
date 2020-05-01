@@ -36,7 +36,7 @@ export default function PokeDetail(){
   }
 return(
       <div className="card my-5 px-0 shadow col-md-7">
-        <div className="cart-title px-4 mb-4 shadow-sm">
+        <div className="card-title px-4 mb-4 shadow-sm">
           <div className="py-3 d-flex justify-content-between">
             <h3>{pokemon["Name"]}</h3>
             <button className="btn btn-danger" onClick={() =>handleDelete(pokemon._id)}>Deletar</button>

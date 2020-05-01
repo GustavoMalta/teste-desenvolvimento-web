@@ -4,11 +4,22 @@ const {types, weather} = require('../models/consts');
 module.exports = {
     async index(req, res){
         const {page = 1 } = req.params;
-        console.log(page);
+        const limit = 2
+        console.log("page: " + page);
+        const Pages = [1]
+        
         const Pokemons = await Pokemon.find()
-                                    .limit()
-                                    .skip(0);
+                                    .skip((Number(page)-1)*limit)
+                                    .limit(limit);
 
+        const Total = await Pokemon.find().count()
+
+        while(Pages.length*limit < Total){
+            Pages.push(Pages.length+1)
+        }
+        console.log(Total)
+        //res.header("count", Total);
+        
 /*
         res.header('X-Total-Count', count['count(*)']);
 
@@ -21,8 +32,9 @@ module.exports = {
         return res.json(test);
 */
 
-        return res.json(Pokemons);
+        return res.header("x-count", [123]).json({Pokemons, Total, Pages});
     },
+
     async types(req, res){
         const Types = types;
         console.log(types);
@@ -59,7 +71,7 @@ module.exports = {
 
             }else{
                 console.log ("Pokemon Ja existe com esse código Pokedex");
-                return res.status(401).json(poke)
+                return res.status(304).json(poke)
             }
             
         return res.json(poke);

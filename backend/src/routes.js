@@ -8,6 +8,7 @@ routes.get('/', (request, response) => {
     return response.json({'Mensagem de olá': 'Hello Mundo!!'});
 });
 
+routes.get('/pokemons/:page', PokeController.index);
 routes.get('/pokemons', PokeController.index);
 routes.post('/pokemons', PokeController.create);
 

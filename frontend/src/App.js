@@ -1,9 +1,7 @@
 import React from 'react';
 
 import './App.css';
-import PokeList from "./pages/PokeList"
 import Routes from './routes';
-import { Router } from 'react-router-dom';
 
 function App(){
 
