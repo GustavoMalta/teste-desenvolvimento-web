@@ -4,16 +4,21 @@ const {types, weather} = require('../models/consts');
 module.exports = {
     async index(req, res){
         const {page = 1 } = req.params;
+        let {Name} = req.query;
+        let object ={};
         const limit = 2
         console.log("page: " + page);
+        if(Name){
+            object = {"Name":{ $regex: Name, $options: Name }}
+            console.log(object)
+        }
         const Pages = [1]
         
-        const Pokemons = await Pokemon.find({Name:"Bulb"})
+        const Pokemons = await Pokemon.find({"Name":{ $regex: Name, $options: Name }})
                                     .skip((Number(page)-1)*limit)
                                     .limit(limit)
                                     .sort({'Name': 1});
-
-        const Total = await Pokemon.find({Name:"Bulb"}).count()
+        const Total = await Pokemon.find().count()
 
         while(Pages.length*limit < Total){
             Pages.push(Pages.length+1)
@@ -42,11 +47,14 @@ module.exports = {
     try{
         let poke = await Pokemon.findOne({Pokedex_Number});
             console.log("poke" + Pokedex_Number)
-        if (true){           //se nao encontrar na lista
+        if (!poke){           //se nao encontrar na lista
         
-            const response = await Pokemon.find();
+            /*const response = await Pokemon.find();
             
-            data.Row = (response)?response.length+1:0;
+            data.Row = (response)?response.length+1:0;*/ //estou deixando o Row pra ser preenchido so na hora, no front
+
+            data.Name=data.Name.toLowerCase();
+
             data.Img_name = data.Pokedex_Number;
             console.log("pokedex: " + data.Pokedex_Number.length)
             while(data.Img_name.length<3){

@@ -47,7 +47,7 @@ return(
             <span className="btn text-info" onClick={() =>handleToList()}>
               <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para a lista
             </span>
-            <h3 className="col-4">{pokemon["Name"]}</h3>
+            <h3 className="col-4 text-capitalize">{pokemon["Name"]}</h3>
 
             <button className="btn btn-danger" onClick={() =>handleDelete(pokemon._id)}>Deletar <FiTrash2/></button>
             

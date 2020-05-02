@@ -1,18 +1,20 @@
-const axios = require('axios');
+const Pokemon = require('../models/pokemon');
 
 module.exports = {
-    async index(request, response){
+    async search(req, res){
+        const {page = 1 } = req.params;
+        const limit = 2
 
-        const {name,} = request.query;
-        const techsArray = parseTechs(techs.toLowerCase())
+        const {name} = req.query;
+        console.log(name);
         
-        var result = await Devfind({Name:"Bulb"})
+        var result = await Pokemon.find({})
                                     .skip((Number(page)-1)*limit)
                                     .limit(limit)
                                     .sort({'Name': 1});
 
-        console.log(' Devs com ' + result)
-        return response.json(result)
+        console.log(' Result: ' + result)
+        return res.json(result)
     }
 
 } 

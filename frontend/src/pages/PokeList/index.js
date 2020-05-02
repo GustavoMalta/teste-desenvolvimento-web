@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react';
 import {Link, useHistory, useParams} from 'react-router-dom';
 
 import './styles.css';
+import { FiSearch} from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -14,12 +15,17 @@ export default function PokeList(){
     const [search, setSearch] = useState('')
     const [total, setTotal] = useState([]);
 
+
     //let Total //= localStorage.getItem('X-Total-Pokes');
 
     useEffect(() =>{
       async function loadPokes(){
-
-       const response =  await api.get('/Pokemons/'+ page);
+        
+       const response =  await api.get('/Pokemons/'+ page,{
+                                                      params:{
+                                                        Name: search,
+                                                      }
+                                                    });
         
         localStorage.setItem('X-Total-Pokes',response.data.Total);
         setTotal(response.data.Total);
@@ -31,14 +37,13 @@ export default function PokeList(){
         setRow(((page-1)*2)+1)
       }
       loadPokes();
-    },[page]);
+    },[page,search]);
 
-  async function handleSearch(data){
-    const response = await api.get('/search',{
-      params:{
-          name: data,
-      }
-    });
+  async function handleSearch(e){
+    e.preventDefault();
+    console.log(search.capitalize)
+    setPokemons([])
+    
   }
 
   async function handleToDetail(id){
@@ -55,24 +60,25 @@ export default function PokeList(){
 
   return(
     <div className="card my-5 shadow">
-      <div className="card-title d-flex justify-content-end p-3 m-0"> 
+      <div className="card-title d-flex justify-content-between p-3 m-0"> 
+      <form onSubmit={handleSearch} className="row"> 
+      <div className="input-group pb-3 col-12 col-md-10">
+        <div className="input-group-prepend">
+          <label className="input-group-text">Busca <FiSearch/></label>  
+        </div>            
+        <input placeholder="Nome"
+                required
+                className="form-control pr-0"
+                value={search}
+                onChange={e=>setSearch(e.target.value.toLowerCase())}/>
+      </div>
+    </form>
         <button type="button" className="btn btn-success" onClick={() =>handleToInsert()}>
         Novo Pokemon
         </button>
       </div>
     <div id="app" className="col-12 d-flex justify-content-center">
-    <form onSubmit={handleRegister} className="row"> 
-      <div className="input-group pb-2 col-12 col-md-6">
-        <div className="input-group-prepend">
-          <label className="input-group-text">Busca: </label>  
-        </div>             
-        <input placeholder="Nome"
-                required
-                className="form-control"
-                value={search}
-                onChange={e=>setSearch(e.target.value)}/>
-      </div>
-
+   
     <main>
       <table className="table table-striped">
         <thead>
@@ -95,7 +101,7 @@ export default function PokeList(){
                         <td>{row++}</td>
                         <td>{pokemon.Pokedex_Number}</td>
                         <td>{pokemon["Img_name"]}</td>
-                        <td>{pokemon["Name"]}</td>
+                        <td className="text-capitalize">{pokemon["Name"]}</td>
                         <td>{pokemon["Type_1"]}</td>
                         <td>{pokemon["Type_2"]}</td>
                         <td>{pokemon["ATK"]}</td>
