@@ -55,6 +55,10 @@ export default function PokeInsert(){
         
 //Row,Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39
 
+async function PokeToList(){
+  history.goBack();
+}
+
   async function handleRegister(e){
     e.preventDefault();
 
@@ -82,7 +86,7 @@ return(
       <div className="card-title px-4 mb-4 col-12 shadow-sm">
           <div className="py-3 d-flex justify-content-between">
             
-            <span className="btn text-info" onClick={() =>PokeInsert()}>
+            <span className="btn text-info" onClick={() =>PokeToList()}>
               <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para a lista
             </span>
 

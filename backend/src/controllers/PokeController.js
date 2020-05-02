@@ -5,20 +5,16 @@ module.exports = {
     async index(req, res){
         const {page = 1 } = req.params;
         let {Name} = req.query;
-        let object ={};
         const limit = 2
-        console.log("page: " + page);
-        if(Name){
-            object = {"Name":{ $regex: Name, $options: Name }}
-            console.log(object)
-        }
         const Pages = [1]
+        
+        console.log("page: " + page);
         
         const Pokemons = await Pokemon.find({$or:[{"Name":{ $regex: Name, $options: Name }},{"Pokedex_Number": Name}]})
                                     .skip((Number(page)-1)*limit)   
                                     .limit(limit)
                                     .sort({'Name': 1});
-        const Total = await Pokemon.find().count()
+        const Total = await Pokemon.find({$or:[{"Name":{ $regex: Name, $options: Name }},{"Pokedex_Number": Name}]}).count()
         
         while(Pages.length*limit < Total){
             Pages.push(Pages.length+1)
@@ -55,7 +51,8 @@ module.exports = {
 
             data.Name=data.Name.toLowerCase();
 
-            data.Img_name = data.Pokedex_Number;data
+            
+            data.Img_name = data.Pokedex_Number;
             console.log("pokedex: " + data.Pokedex_Number.length)
             while(data.Img_name.length<3){
                 data.Img_name = '0'+data.Img_name
@@ -108,7 +105,13 @@ module.exports = {
             console.log(poke._id)
             console.log(data.Type_1) 
             console.log(data.Type_2)
+
+            data.Name=data.Name.toLowerCase();
+            data.Img_name = data.Pokedex_Number;
             
+            while(data.Img_name.length<3){
+                data.Img_name = '0'+data.Img_name
+            }
             
             if( types.indexOf(data.Type_1) > -1 && 
                 (types.indexOf(data.Type_2) > -1 || !data.Type_2 ) && 

@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 
 import './styles.css';
-import { FiArrowLeftCircle } from 'react-icons/fi';
+import { FiArrowLeftCircle, FiTrash2 } from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -130,7 +130,7 @@ return(
           <div className="py-3 d-flex justify-content-between">
             
             <span className="btn text-info" onClick={() =>handleToDetail()}>
-              <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para a lista
+              <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para os detalhes
             </span>
 
             <button className="btn btn-success" type="submit">Salvar</button>
@@ -436,7 +436,9 @@ return(
           </div> 
           </div>
           </form>
-      </div>
-      
+          <div className="d-flex justify-content-center pt-4">
+              <FiTrash2  onClick={() =>handleDelete(_id)}/>
+          </div> 
+      </div>     
 );
 }
