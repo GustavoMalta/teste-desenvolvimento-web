@@ -63,8 +63,8 @@ async function PokeToList(){
     e.preventDefault();
 
     const data = {Row,Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39};
+    data.STAT_TOTAL = Number(ATK)+Number(DEF)+Number(STA) 
     
-    console.log(data);
     let response
 
     try{

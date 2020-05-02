@@ -103,10 +103,11 @@ console.log(_id)
 
   async function handleUpdate(e){
     e.preventDefault();
-
-    const data = {Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39};
     
-    console.log(data);
+    const data = {Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39};
+    data.STAT_TOTAL = Number(ATK)+Number(DEF)+Number(STA) //nao tava sanvando so com o formulario
+
+    console.log("Total" + data.STAT_TOTAL );
     let response
 
     try{
@@ -116,8 +117,8 @@ console.log(_id)
       alert(`Falha na Atualização`);
     }
     if(response){
-      console.log(response.data.Name)
-      alert(`${response.data.Name} Atualizado com sucesso!!`)
+      
+      alert(`${data.Name} Atualizado com sucesso!!`)
       history.goBack();
     }
       
@@ -230,7 +231,6 @@ return(
                   required
                   disabled
                   className="form-control"
-                  type="number"
                   value={Number(ATK)+Number(DEF)+Number(STA)}
                   onChange={e=>setSTAT_TOTAL(e.target.value)}/>
           </div>

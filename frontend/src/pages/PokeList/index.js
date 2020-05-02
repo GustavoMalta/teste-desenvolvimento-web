@@ -34,15 +34,24 @@ export default function PokeList(){
         console.log("Total: "+response.data.Total)
         console.log("Paginas: "+ response.data.Pages.length)
         console.log("Paginas: "+ response.data.Pages)
-        setRow(((page-1)*2)+1)
+        setRow(((page-1)*10)+1)
       }
       loadPokes();
     },[page,search]);
 
+    useEffect(() =>{
+      async function search(e){
+        if(page!=1){
+          history.push('/page/1');
+        }
+      }
+      search();
+    },[search]);
+
   async function handleSearch(e){
     e.preventDefault();
     console.log(search.capitalize)
-    setPokemons([])
+    //setPokemons([])
     
   }
 
@@ -62,11 +71,11 @@ export default function PokeList(){
     <div className="card my-5 shadow">
       <div className="card-title d-flex justify-content-between p-3 m-0"> 
       <form onSubmit={handleSearch} className="row"> 
-      <div className="input-group pb-3 col-12 col-md-10">
+      <div className="input-group pb-3 col-12 col-md-11">
         <div className="input-group-prepend">
           <label className="input-group-text"><FiSearch/> Busca </label>  
         </div>            
-        <input placeholder="Nome Codigo Pokedex"
+        <input placeholder="Nome ou Codigo Pokedex"
                 required
                 className="form-control pr-0"
                 value={search}
@@ -100,7 +109,11 @@ export default function PokeList(){
                         <td className="d-none" key={pokemon["_id"]}>{pokemon._id}</td>
                         <td>{row++}</td>
                         <td>{pokemon.Pokedex_Number}</td>
-                        <td>{pokemon["Img_name"]}</td>
+                        <td>
+                          <img src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokemon.Img_name}.png`}
+                                  alt={pokemon.Name}
+                                  width="25"/>
+                        </td>
                         <td className="text-capitalize">{pokemon["Name"]}</td>
                         <td>{pokemon["Type_1"]}</td>
                         <td>{pokemon["Type_2"]}</td>

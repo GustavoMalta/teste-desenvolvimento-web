@@ -76,7 +76,7 @@ return(
           </div>
           <div className="row col-12">
             <strong>STAT TOTAL: </strong>
-            <p>{pokemon["STAT_TOTAL"]}</p>
+            <p>{pokemon.STAT_TOTAL}</p>
           </div>
         </div>
         </div>

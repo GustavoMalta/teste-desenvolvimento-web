@@ -5,9 +5,9 @@ module.exports = {
     async index(req, res){
         const {page = 1 } = req.params;
         let {Name} = req.query;
-        const limit = 2
+        const limit = 10
         const Pages = [1]
-        
+
         console.log("page: " + page);
         
         const Pokemons = await Pokemon.find({$or:[{"Name":{ $regex: Name, $options: Name }},{"Pokedex_Number": Name}]})
@@ -112,7 +112,7 @@ module.exports = {
             while(data.Img_name.length<3){
                 data.Img_name = '0'+data.Img_name
             }
-            
+
             if( types.indexOf(data.Type_1) > -1 && 
                 (types.indexOf(data.Type_2) > -1 || !data.Type_2 ) && 
                 weather.indexOf(data.Weather_1) > -1&& 
@@ -130,6 +130,7 @@ module.exports = {
             return res.status(304).json(poke)
         }
         return res.json(poke);
+
     
     },
 
