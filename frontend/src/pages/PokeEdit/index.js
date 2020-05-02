@@ -1,8 +1,8 @@
-import React,{useState, useEffect, Form} from 'react';
+import React,{useState, useEffect} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 
 import './styles.css';
-//import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeftCircle } from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -12,9 +12,8 @@ export default function PokeEdit(){
   const history = useHistory();
   const [Types, setTypes]= useState([]);
   const [Weather, setWeather]= useState([]);
-  const [pokemon, setPokemon] = useState([]);
 
-  const [Row]= useState([]);
+  const [_id]= useState(id);
   const [Name, setName]= useState([]);
   const [Pokedex_Number,setPokedex_Number]= useState([]);
   const [Img_name, setImg_name]= useState([]);
@@ -53,7 +52,7 @@ export default function PokeEdit(){
       console.log(response)
       setTypes(type.data);
       setWeather(weather.data);
-      
+
       setName(response.data.Name);
       setPokedex_Number(response.data.Pokedex_Number);
       setImg_name(response.data.Img_name);
@@ -83,7 +82,7 @@ export default function PokeEdit(){
       setFuture_Evolve(response.data.Future_Evolve);
       setAt40(response.data.At40);
       setAt39(response.data.At39);
-
+console.log(_id)
     } 
     loadPoke();
   },[]);
@@ -96,37 +95,48 @@ export default function PokeEdit(){
     history.push('/');
   }
 
-  async function handleToList(){
+  async function handleToDetail(){
     history.goBack();
   }
         
 //Row,Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39
 
-  async function handleRegister(e){
+  async function handleUpdate(e){
     e.preventDefault();
 
-    const data = {Row,Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39};
+    const data = {Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39};
     
     console.log(data);
     let response
 
     try{
-        response = await api.post('/pokemons', data);
+        response = await api.put('/pokemon/'+id, data);
     }catch(err){
       console.log(err)
-      alert(`Pokemon ja esta cadastrado`);
+      alert(`Falha na Atualização`);
     }
     if(response){
-      alert(`${response.data.Name} Cadastrado com sucesso!!`)
-      history.push('/');
+      console.log(response.data.Name)
+      alert(`${response.data.Name} Atualizado com sucesso!!`)
+      history.goBack();
     }
       
   } 
 
 return(
-  <div className="card my-5 shadow">
-      <div className="cart-title p-4">
-        <form onSubmit={handleRegister} className="row"> 
+  <div className="card my-5 col-md-7 col-12 shadow">
+    <form onSubmit={handleUpdate} className="row"> 
+      <div className="card-title px-4 mb-4 col-12 shadow-sm">
+          <div className="py-3 d-flex justify-content-between">
+            
+            <span className="btn text-info" onClick={() =>handleToDetail()}>
+              <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para a lista
+            </span>
+
+            <button className="btn btn-success" type="submit">Salvar</button>
+          </div>
+      </div>
+        
         <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
             <label className="input-group-text">Nome: </label>  
@@ -144,6 +154,7 @@ return(
           <input placeholder="Pokedex_Number"
                   required
                   className="form-control"
+                  type="number"
                   value={Pokedex_Number}
                   onChange={e=>setPokedex_Number(e.target.value)}/>
          </div>
@@ -168,7 +179,7 @@ return(
             <strong className="input-group-text">Weather: </strong>  
           </div> 
           <select value={Weather_1} className="form-control" onChange={e=>setWeather_1(e.target.value)}>
-            {Weather.map(weather =>(
+            {Weather.map(weather =>(                 
                   <option  key={weather} value={weather}>{weather}</option>
               ))}
           </select>
@@ -179,6 +190,50 @@ return(
               ))}
           </select>
         </div>
+        <div className="input-group pb-2 col-12 col-md-6 justify-content-between">
+          <div className="input-group-prepend col-md-4 p-0 pr-1">
+            <strong className="input-group-text">ATK: </strong>  
+            <input placeholder="ATK"
+                    required
+                    className="form-control  p-0 text-center"
+                    type="number"
+                    value={ATK}
+                    onChange={e=>setATK(e.target.value)}/>
+                  
+          </div> 
+          <div className="input-group-prepend col-md-4 p-0 pr-1">
+            <strong className="input-group-text">DEF: </strong>  
+            <input placeholder="DEF"
+                    required
+                    className="form-control  p-0 text-center"
+                    type="number"
+                    value={DEF}
+                    onChange={e=>setDEF(e.target.value)}/>
+          </div> 
+                  
+          <div className="input-group-prepend col-md-4 p-0">
+            <strong className="input-group-text">STA: </strong>
+            <input placeholder="STA"
+                    required
+                    className="form-control p-0 text-center"
+                    type="number"
+                    value={STA}
+                    onChange={e=>setSTA(e.target.value)}/>  
+          </div> 
+          </div>
+
+          <div className="input-group pb-2 col-12 col-md-6">
+          <div className="input-group-prepend">
+            <strong className="input-group-text">STAT_TOTAL: </strong>  
+          </div> 
+          <input placeholder="STAT_TOTAL"
+                  required
+                  disabled
+                  className="form-control"
+                  type="number"
+                  value={Number(ATK)+Number(DEF)+Number(STA)}
+                  onChange={e=>setSTAT_TOTAL(e.target.value)}/>
+          </div>
         <div className="input-group pb-2 col-12 col-md-6 d-none">
           <div className="input-group-prepend">
             <strong className="input-group-text">Img_name: </strong>  
@@ -196,6 +251,7 @@ return(
               <input placeholder="Generation"
                   required
                   className="form-control"
+                  type="number"
                   value={Generation}
                   onChange={e=>setGeneration(e.target.value)}/>
               <input placeholder="Evolution_Stage" className="text-capitalize"
@@ -212,8 +268,9 @@ return(
           <input placeholder="Evolved"
                   required
                   className="form-control"
-                    value={Evolved}
-                    onChange={e=>setEvolved(e.target.value)}/>
+                  type="number"
+                  value={Evolved}
+                  onChange={e=>setEvolved(e.target.value)}/>
           </div>
         <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -222,8 +279,9 @@ return(
           <input placeholder="FamilyID"
                   required
                   className="form-control"
-                    value={FamilyID}
-                    onChange={e=>setFamilyID(e.target.value)}/>
+                  type="number"
+                  value={FamilyID}
+                  onChange={e=>setFamilyID(e.target.value)}/>
           </div>
           <div className="input-group pb-2 col-12 col-md-6">
             <div className="input-group-prepend">
@@ -232,48 +290,9 @@ return(
           <input placeholder="Cross_Gen"
                   required
                   className="form-control"
-                    value={Cross_Gen}
-                    onChange={e=>setCross_Gen(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">STAT_TOTAL: </strong>  
-          </div> 
-          <input placeholder="STAT_TOTAL"
-                  required
-                  className="form-control"
-                    value={STAT_TOTAL}
-                    onChange={e=>setSTAT_TOTAL(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">ATK: </strong>  
-          </div> 
-          <input placeholder="ATK"
-                  required
-                  className="form-control"
-                    value={ATK}
-                    onChange={e=>setATK(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">DEF: </strong>  
-          </div> 
-          <input placeholder="DEF"
-                  required
-                  className="form-control"
-                    value={DEF}
-                    onChange={e=>setDEF(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">STA: </strong>  
-          </div> 
-          <input placeholder="STA"
-                  required
-                  className="form-control"
-                    value={STA}
-                    onChange={e=>setSTA(e.target.value)}/>
+                  type="number"
+                  value={Cross_Gen}
+                  onChange={e=>setCross_Gen(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -282,8 +301,9 @@ return(
           <input placeholder="Legendary"
                   required
                   className="form-control"
-                    value={Legendary}
-                    onChange={e=>setLegendary(e.target.value)}/>
+                  type="number"
+                  value={Legendary}
+                  onChange={e=>setLegendary(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -292,8 +312,9 @@ return(
           <input placeholder="Aquireable"
                   required
                   className="form-control"
-                    value={Aquireable}
-                    onChange={e=>setAquireable(e.target.value)}/>
+                  type="number"
+                  value={Aquireable}
+                  onChange={e=>setAquireable(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -302,8 +323,9 @@ return(
           <input placeholder="Spawns"
                   required
                   className="form-control"
-                    value={Spawns}
-                    onChange={e=>setSpawns(e.target.value)}/>
+                  type="number"
+                  value={Spawns}
+                  onChange={e=>setSpawns(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -312,8 +334,9 @@ return(
           <input placeholder="Regional"
                   required
                   className="form-control"
-                    value={Regional}
-                    onChange={e=>setRegional(e.target.value)}/>
+                  type="number"
+                  value={Regional}
+                  onChange={e=>setRegional(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -322,8 +345,9 @@ return(
           <input placeholder="Raidable"
                   required
                   className="form-control"
-                    value={Raidable}
-                    onChange={e=>setRaidable(e.target.value)}/>
+                  type="number"
+                  value={Raidable}
+                  onChange={e=>setRaidable(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -332,8 +356,9 @@ return(
           <input placeholder="Hatchable"
                   required
                   className="form-control"
-                    value={Hatchable}
-                    onChange={e=>setHatchable(e.target.value)}/>
+                  type="number"
+                  value={Hatchable}
+                  onChange={e=>setHatchable(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -342,8 +367,9 @@ return(
           <input placeholder="Shiny"
                   required
                   className="form-control"
-                    value={Shiny}
-                    onChange={e=>setShiny(e.target.value)}/>
+                  type="number"
+                  value={Shiny}
+                  onChange={e=>setShiny(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -352,8 +378,9 @@ return(
           <input placeholder="Nest"
                   required
                   className="form-control"
-                    value={Nest}
-                    onChange={e=>setNest(e.target.value)}/>
+                  type="number"
+                  value={Nest}
+                  onChange={e=>setNest(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -362,8 +389,9 @@ return(
           <input placeholder="New"
                   required
                   className="form-control"
-                    value={New}
-                    onChange={e=>setNew(e.target.value)}/>
+                  type="number"
+                  value={New}
+                  onChange={e=>setNew(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -372,8 +400,9 @@ return(
           <input placeholder="Not_Gettable"
                   required
                   className="form-control"
-                    value={Not_Gettable}
-                    onChange={e=>setNot_Gettable(e.target.value)}/>
+                  type="number"
+                  value={Not_Gettable}
+                  onChange={e=>setNot_Gettable(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -382,35 +411,32 @@ return(
           <input placeholder="Future_Evolve"
                   required
                   className="form-control"
+                  type="number"
                   value={Future_Evolve}
                   onChange={e=>setFuture_Evolve(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
+          <div className="input-group-prepend col-md-6 p-0 pr-1">
             <strong className="input-group-text">At40: </strong>  
-          </div> 
-          <input placeholder="At40"
-                  required
-                  className="form-control"
+            <input placeholder="At40"
+                    required
+                    className="form-control"
+                    type="number"
                     value={At40}
                     onChange={e=>setAt40(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">At39: </strong>  
           </div> 
-          <input placeholder="At39"
-                  required
-                  className="form-control"
+          <div className="input-group-prepend col-md-6 p-0">
+            <strong className="input-group-text">At39: </strong>  
+            <input placeholder="At39"
+                    required
+                    className="form-control"
+                    type="number"
                     value={At39}
                     onChange={e=>setAt39(e.target.value)}/>
+          </div> 
           </div>
-         {//Stage,Evolved,FamilyID,Cross_Gen
-         }
-          <button className="btn btn-success" type="submit">Cadastrar</button>
           </form>
       </div>
-  </div>
       
 );
 }

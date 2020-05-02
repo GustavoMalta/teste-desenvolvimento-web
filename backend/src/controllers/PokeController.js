@@ -48,11 +48,10 @@ module.exports = {
     try{
         let poke = await Pokemon.findOne({Pokedex_Number});
             console.log("poke" + Pokedex_Number)
-        if (true){           //se nao encontrar na lista
-        
+        if (!poke){           //se nao encontrar na lista
             
-            
-            data.Row = null //(response)?response.length+1:0; estou deixando o Row pra ser preenchido so na hora, no front
+            console.log(data);
+            //data.Row = null //(response)?response.length+1:0; estou deixando o Row pra ser preenchido so na hora, no front
 
             data.Name=data.Name.toLowerCase();
 
@@ -100,23 +99,32 @@ module.exports = {
     async update(req, res){
         const {_id} = req.params;
         const data = req.body;
-
+        console.log("Update: " + data.Name)
         let poke = await Pokemon.findOne({_id});
 
         if (poke){  
-            console.log(types.indexOf(data["Type 1"])); //if para validar os types
-            console.log(data["Pokedex Number"])
-            console.log(poke["Pokedex Number"])
-            if(data["Pokedex Number"]==poke["Pokedex Number"]){
+            console.log(data.Type_2 + ": "+ types.indexOf(data.Type_2)); //if para validar os types -1
             
-            poke = await Pokemon.updateOne(data)
-            console.log ("Pokemon Atualizado");
+            console.log(poke._id)
+            console.log(data.Type_1) 
+            console.log(data.Type_2)
             
+            
+            if( types.indexOf(data.Type_1) > -1 && 
+                (types.indexOf(data.Type_2) > -1 || !data.Type_2 ) && 
+                weather.indexOf(data.Weather_1) > -1&& 
+                (weather.indexOf(data.Weather_2) > -1 || !data.Weather_2 )){
+            
+                poke = await Pokemon.updateOne(data)
+                console.log ("Pokemon Atualizado");
+            }else{
+                console.log ("Falha na Atualização Tipo/Clima");
+                return res.status(304).json(poke)
             }
-            
 
         }else{
             console.log ("Falha na Atualização");
+            return res.status(304).json(poke)
         }
         return res.json(poke);
     

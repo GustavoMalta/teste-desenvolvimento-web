@@ -1,8 +1,8 @@
-import React,{useState, useEffect, Form} from 'react';
+import React,{useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 
 import './styles.css';
-//import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeftCircle } from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -35,7 +35,7 @@ export default function PokeInsert(){
         const [Type_2, setType_2]= useState("poison");    
         const [Weather_1, setWeather_1]= useState("Sunny/clear");
         const [Weather_2, setWeather_2]= useState("Cloudy");
-        const [STAT_TOTAL, setSTAT_TOTAL]= useState("326");
+        const [STAT_TOTAL, setSTAT_TOTAL]= useState("");
         const [ATK, setATK]= useState("118");
         const [DEF, setDEF]= useState("118");
         const [STA, setSTA]= useState("90");
@@ -77,9 +77,19 @@ export default function PokeInsert(){
   } 
 
 return(
-  <div className="card my-5 shadow">
-      <div className="cart-title p-4">
-        <form onSubmit={handleRegister} className="row"> 
+  <div className="card my-5 col-md-7 col-12 shadow">
+    <form onSubmit={handleRegister} className="row"> 
+      <div className="card-title px-4 mb-4 col-12 shadow-sm">
+          <div className="py-3 d-flex justify-content-between">
+            
+            <span className="btn text-info" onClick={() =>PokeInsert()}>
+              <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para a lista
+            </span>
+
+            <button className="btn btn-success" type="submit">Cadastrar</button>  
+          </div>
+      </div>
+
         <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
             <label className="input-group-text">Nome: </label>  
@@ -132,6 +142,46 @@ return(
               ))}
           </select>
         </div>
+
+        <div className="input-group pb-2 col-12 col-md-6 justify-content-between">
+          <div className="input-group-prepend col-md-4 p-0 pr-1">
+            <strong className="input-group-text">ATK: </strong>  
+            <input placeholder="ATK"
+                    required
+                    className="form-control"
+                      value={ATK}
+                      onChange={e=>setATK(e.target.value)}/>
+          </div>                     
+          <div className="input-group-prepend col-md-4 p-0 pr-1">
+            <strong className="input-group-text">DEF: </strong>
+            <input placeholder="DEF"
+                  required
+                  className="form-control"
+                    value={DEF}
+                    onChange={e=>setDEF(e.target.value)}/>  
+          </div> 
+          <div className="input-group-prepend col-md-4 p-0">
+            <strong className="input-group-text">STA: </strong>
+            <input placeholder="STA"
+                    required
+                    className="form-control"
+                      value={STA}
+                      onChange={e=>setSTA(e.target.value)}/>  
+          </div>
+          </div>
+         <div className="input-group pb-2 col-12 col-md-6">
+          <div className="input-group-prepend">
+            <strong className="input-group-text">STAT_TOTAL: </strong>  
+          </div> 
+          <input placeholder="STAT_TOTAL"
+                  required
+                  disabled
+                  className="form-control"
+                  value={Number(ATK)+Number(DEF)+Number(STA)}
+                  onChange={e=>setSTAT_TOTAL(e.target.value)}/>
+          </div> 
+        
+
         <div className="input-group pb-2 col-12 col-md-6 d-none">
           <div className="input-group-prepend">
             <strong className="input-group-text">Img_name: </strong>  
@@ -144,30 +194,36 @@ return(
           </div>
           <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
-            <strong className="input-group-text">Generation/Evolution_Stage: </strong>  
+            <strong className="input-group-text">Generation: </strong>  
           </div>
               <input placeholder="Generation"
                   required
                   className="form-control"
                   value={Generation}
                   onChange={e=>setGeneration(e.target.value)}/>
-              <input placeholder="Evolution_Stage" className="text-capitalize"
-                  required
-                  className="form-control"
-                  value={Evolution_Stage}
-                  onChange={e=>setEvolution_Stage(e.target.value)}/> 
           </div>
 
-        <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">Evolved: </strong>  
-          </div> 
-          <input placeholder="Evolved"
-                  required
-                  className="form-control"
-                    value={Evolved}
-                    onChange={e=>setEvolved(e.target.value)}/>
+          <div className="input-group pb-2 col-12 col-md-6">
+            <div className="input-group-prepend col-md-5 p-0 pr-1">
+              <strong className="input-group-text">Evolved: </strong>  
+              <input placeholder="Evolved"
+                      required
+                      className="form-control"
+                      type="number"
+                      value={Evolved}
+                      onChange={e=>setEvolved(e.target.value)}/>
+            </div> 
+            <div className="input-group-prepend col-md-7 p-0">
+              <strong className="input-group-text">Evolution_Stage: </strong>  
+              <input placeholder="Evolution_Stage"
+                      required
+                      className="form-control"
+                      type="number"
+                      value={Evolution_Stage}
+                      onChange={e=>setEvolution_Stage(e.target.value)}/>
+            </div> 
           </div>
+
         <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
             <strong className="input-group-text">FamilyID: </strong>  
@@ -187,46 +243,6 @@ return(
                   className="form-control"
                     value={Cross_Gen}
                     onChange={e=>setCross_Gen(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">STAT_TOTAL: </strong>  
-          </div> 
-          <input placeholder="STAT_TOTAL"
-                  required
-                  className="form-control"
-                    value={STAT_TOTAL}
-                    onChange={e=>setSTAT_TOTAL(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">ATK: </strong>  
-          </div> 
-          <input placeholder="ATK"
-                  required
-                  className="form-control"
-                    value={ATK}
-                    onChange={e=>setATK(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">DEF: </strong>  
-          </div> 
-          <input placeholder="DEF"
-                  required
-                  className="form-control"
-                    value={DEF}
-                    onChange={e=>setDEF(e.target.value)}/>
-          </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">STA: </strong>  
-          </div> 
-          <input placeholder="STA"
-                  required
-                  className="form-control"
-                    value={STA}
-                    onChange={e=>setSTA(e.target.value)}/>
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend">
@@ -338,32 +354,29 @@ return(
                   value={Future_Evolve}
                   onChange={e=>setFuture_Evolve(e.target.value)}/>
           </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">At40: </strong>  
-          </div> 
-          <input placeholder="At40"
-                  required
-                  className="form-control"
-                    value={At40}
-                    onChange={e=>setAt40(e.target.value)}/>
+          <div className="input-group pb-2 col-12 col-md-6">
+            <div className="input-group-prepend col-md-6 p-0 pr-1">
+              <strong className="input-group-text">At40: </strong>  
+              <input placeholder="At40"
+                      required
+                      className="form-control"
+                      type="number"
+                      value={At40}
+                      onChange={e=>setAt40(e.target.value)}/>
+            </div> 
+            <div className="input-group-prepend col-md-6 p-0">
+              <strong className="input-group-text">At39: </strong>  
+              <input placeholder="At39"
+                      required
+                      className="form-control"
+                      type="number"
+                      value={At39}
+                      onChange={e=>setAt39(e.target.value)}/>
+            </div> 
           </div>
-         <div className="input-group pb-2 col-12 col-md-6">
-          <div className="input-group-prepend">
-            <strong className="input-group-text">At39: </strong>  
-          </div> 
-          <input placeholder="At39"
-                  required
-                  className="form-control"
-                    value={At39}
-                    onChange={e=>setAt39(e.target.value)}/>
-          </div>
-         {//Stage,Evolved,FamilyID,Cross_Gen
-         }
-          <button className="btn btn-success" type="submit">Cadastrar</button>
-          </form>
+          
+      </form>
       </div>
-  </div>
       
 );
 }

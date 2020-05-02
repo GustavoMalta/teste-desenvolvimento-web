@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 
 import './styles.css';
-import { FiArrowLeftCircle, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeftCircle, FiEdit } from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -49,7 +49,7 @@ return(
             </span>
             <h3 className="col-4 text-capitalize">{pokemon["Name"]}</h3>
 
-            <button className="btn btn-danger" onClick={() =>handleEdit(pokemon._id)}> Edit <FiTrash2/></button>
+            <button className="btn btn-danger" onClick={() =>handleEdit(pokemon._id)}> Edit <FiEdit/></button>
             
           </div>
           <h5 className="text-right"><strong>Pokedex Code: </strong>{pokemon["Pokedex_Number"]}</h5>
