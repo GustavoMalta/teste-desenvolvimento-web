@@ -64,9 +64,9 @@ export default function PokeList(){
       <form onSubmit={handleSearch} className="row"> 
       <div className="input-group pb-3 col-12 col-md-10">
         <div className="input-group-prepend">
-          <label className="input-group-text">Busca <FiSearch/></label>  
+          <label className="input-group-text"><FiSearch/> Busca </label>  
         </div>            
-        <input placeholder="Nome"
+        <input placeholder="Nome Codigo Pokedex"
                 required
                 className="form-control pr-0"
                 value={search}

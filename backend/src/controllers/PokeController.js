@@ -14,12 +14,12 @@ module.exports = {
         }
         const Pages = [1]
         
-        const Pokemons = await Pokemon.find({"Name":{ $regex: Name, $options: Name }})
-                                    .skip((Number(page)-1)*limit)
+        const Pokemons = await Pokemon.find({$or:[{"Name":{ $regex: Name, $options: Name }},{"Pokedex_Number": Name}]})
+                                    .skip((Number(page)-1)*limit)   
                                     .limit(limit)
                                     .sort({'Name': 1});
         const Total = await Pokemon.find().count()
-
+        
         while(Pages.length*limit < Total){
             Pages.push(Pages.length+1)
         }
@@ -43,19 +43,20 @@ module.exports = {
 
     async create(req, res){
         const data = req.body;
+
         const Pokedex_Number = data.Pokedex_Number;
     try{
         let poke = await Pokemon.findOne({Pokedex_Number});
             console.log("poke" + Pokedex_Number)
-        if (!poke){           //se nao encontrar na lista
+        if (true){           //se nao encontrar na lista
         
-            /*const response = await Pokemon.find();
             
-            data.Row = (response)?response.length+1:0;*/ //estou deixando o Row pra ser preenchido so na hora, no front
+            
+            data.Row = null //(response)?response.length+1:0; estou deixando o Row pra ser preenchido so na hora, no front
 
             data.Name=data.Name.toLowerCase();
 
-            data.Img_name = data.Pokedex_Number;
+            data.Img_name = data.Pokedex_Number;data
             console.log("pokedex: " + data.Pokedex_Number.length)
             while(data.Img_name.length<3){
                 data.Img_name = '0'+data.Img_name
@@ -73,7 +74,8 @@ module.exports = {
             }
             
         return res.json(poke);
-    }catch{
+    }catch(err){
+        console.log(err)
         return res.status(400).json({error:'operation not permited'});
          
     }

@@ -19,12 +19,12 @@ export default function PokeDetail(){
     loadPoke();
   },[]);
   
-  async function handleDelete(data){
+  async function handleEdit(data){
     console.log(data)
-    const response = await api.delete('/pokemon/'+data);
+    //const response = await api.delete('/pokemon/'+data);
     
-    console.log(response.status);
-    history.push('/');
+    //console.log(response.status);
+    history.push('/pokemon/Edit/'+data);
   }
 
   async function handleToList(){
@@ -49,7 +49,7 @@ return(
             </span>
             <h3 className="col-4 text-capitalize">{pokemon["Name"]}</h3>
 
-            <button className="btn btn-danger" onClick={() =>handleDelete(pokemon._id)}>Deletar <FiTrash2/></button>
+            <button className="btn btn-danger" onClick={() =>handleEdit(pokemon._id)}> Edit <FiTrash2/></button>
             
           </div>
           <h5 className="text-right"><strong>Pokedex Code: </strong>{pokemon["Pokedex_Number"]}</h5>

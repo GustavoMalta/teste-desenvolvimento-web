@@ -29,8 +29,8 @@ const PokeSchema = new mongoose.Schema({
     New:String,
     Not_Gettable:String,
     Future_Evolve:String,
-    "100% CP @ 40":String,
-    "100% CP @ 39":String,
+    At40:String,
+    At39:String,
 });
 
 module.exports = mongoose.model('Pokemon', PokeSchema)
