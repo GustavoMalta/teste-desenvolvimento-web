@@ -8,32 +8,22 @@ module.exports = {
         console.log("page: " + page);
         const Pages = [1]
         
-        const Pokemons = await Pokemon.find()
+        const Pokemons = await Pokemon.find({Name:"Bulb"})
                                     .skip((Number(page)-1)*limit)
-                                    .limit(limit);
+                                    .limit(limit)
+                                    .sort({'Name': 1});
 
-        const Total = await Pokemon.find().count()
+        const Total = await Pokemon.find({Name:"Bulb"}).count()
 
         while(Pages.length*limit < Total){
             Pages.push(Pages.length+1)
         }
         console.log(Total)
-        //res.header("count", Total);
-        
-/*
-        res.header('X-Total-Count', count['count(*)']);
-
-        const pokes = await connection('incidents')
-        .join('ongs', 'ongs.id','=','incidents.ong_id')
-        .limit(5)
-        .offset((page-1)*5)
-        .select(['incidents.*','ongs.name','ongs.email','ongs.whatsapp','ongs.city','ongs.uf']);
-        console.log(test);
-        return res.json(test);
-*/
 
         return res.header("x-count", [123]).json({Pokemons, Total, Pages});
     },
+
+    
 
     async types(req, res){
         const Types = types;

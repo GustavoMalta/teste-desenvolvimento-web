@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
 
 import './styles.css';
-//import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeftCircle, FiTrash2 } from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -27,6 +27,11 @@ export default function PokeDetail(){
     history.push('/');
   }
 
+  async function handleToList(){
+    history.goBack();
+  }
+  
+
   if(!pokemon){ // Delay para home denovo
     return(
       <div>
@@ -38,8 +43,14 @@ return(
       <div className="card my-5 px-0 shadow col-md-7">
         <div className="card-title px-4 mb-4 shadow-sm">
           <div className="py-3 d-flex justify-content-between">
-            <h3>{pokemon["Name"]}</h3>
-            <button className="btn btn-danger" onClick={() =>handleDelete(pokemon._id)}>Deletar</button>
+            
+            <span className="btn text-info" onClick={() =>handleToList()}>
+              <FiArrowLeftCircle size={20} color="#17a2b8"/>Voltar para a lista
+            </span>
+            <h3 className="col-4">{pokemon["Name"]}</h3>
+
+            <button className="btn btn-danger" onClick={() =>handleDelete(pokemon._id)}>Deletar <FiTrash2/></button>
+            
           </div>
           <h5 className="text-right"><strong>Pokedex Code: </strong>{pokemon["Pokedex_Number"]}</h5>
         </div>

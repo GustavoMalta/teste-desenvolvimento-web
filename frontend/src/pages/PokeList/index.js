@@ -2,7 +2,6 @@ import React,{useEffect, useState} from 'react';
 import {Link, useHistory, useParams} from 'react-router-dom';
 
 import './styles.css';
-import { FiPower, FiTrash2 } from 'react-icons/fi';
 import api from "../../services/api";
 
 
@@ -12,6 +11,7 @@ export default function PokeList(){
     const [pokemons, setPokemons] = useState([]);
     let [row, setRow] = useState(1);
     const [pages, setPages] = useState([]);
+    const [search, setSearch] = useState('')
     const [total, setTotal] = useState([]);
 
     //let Total //= localStorage.getItem('X-Total-Pokes');
@@ -33,15 +33,16 @@ export default function PokeList(){
       loadPokes();
     },[page]);
 
-  async function handleDev(data){
-    const response = await api.post('/devs',data);
-
-    setPokemons([...pokemons,response.data])
-    console.log(response.data);
+  async function handleSearch(data){
+    const response = await api.get('/search',{
+      params:{
+          name: data,
+      }
+    });
   }
 
   async function handleToDetail(id){
-    history.push('/pokemon/', id)
+    history.push('/pokemon/'+ id)
     console.log(id);
   }
   async function handleToInsert(){
@@ -60,7 +61,18 @@ export default function PokeList(){
         </button>
       </div>
     <div id="app" className="col-12 d-flex justify-content-center">
-    
+    <form onSubmit={handleRegister} className="row"> 
+      <div className="input-group pb-2 col-12 col-md-6">
+        <div className="input-group-prepend">
+          <label className="input-group-text">Busca: </label>  
+        </div>             
+        <input placeholder="Nome"
+                required
+                className="form-control"
+                value={search}
+                onChange={e=>setSearch(e.target.value)}/>
+      </div>
+
     <main>
       <table className="table table-striped">
         <thead>
