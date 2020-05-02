@@ -90,7 +90,7 @@ return(
           </div>
           <div className="row col-12 col-sm-6">
             <strong>Weather: </strong>
-            <p>{pokemon["Weather_1"]} {pokemon["Weather_1"]?'/'+pokemon["Weather_1"]:''}</p>
+            <p>{pokemon["Weather_1"]} {pokemon["Weather_2"]?'/'+pokemon["Weather_2"]:''}</p>
           </div>
 
           <div className="row col-12 col-sm-6">
