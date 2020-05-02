@@ -2,7 +2,7 @@ const Pokemon = require('../models/pokemon');
 const {types, weather} = require('../models/consts');
 
 module.exports = {
-    async index(req, res){
+    async index(req, res){ //GET
         const {page = 1 } = req.params;
         let {Name} = req.query;
         const limit = 10
@@ -37,7 +37,7 @@ module.exports = {
         return res.json(Weather);
     },
 
-    async create(req, res){
+    async create(req, res){ //POST
         const data = req.body;
 
         const Pokedex_Number = data.Pokedex_Number;
@@ -77,7 +77,7 @@ module.exports = {
     }
     },
 
-    async edit(req, res){
+    async edit(req, res){ //get
         
         //https://assets.pokemon.com/assets/cms2/img/pokedex/full/214.png
 
@@ -93,7 +93,7 @@ module.exports = {
         return res.json(poke);
     },
 
-    async update(req, res){
+    async update(req, res){ //PUT
         const {_id} = req.params;
         const data = req.body;
         console.log("Update: " + data.Name)
@@ -118,7 +118,8 @@ module.exports = {
                 weather.indexOf(data.Weather_1) > -1&& 
                 (weather.indexOf(data.Weather_2) > -1 || !data.Weather_2 )){
             
-                poke = await Pokemon.updateOne(data)
+                poke = await Pokemon.updateOne({_id},data)
+                console.log(data.Name)
                 console.log ("Pokemon Atualizado");
             }else{
                 console.log ("Falha na Atualização Tipo/Clima");
@@ -134,7 +135,7 @@ module.exports = {
     
     },
 
-    async delete(req, res){
+    async delete(req, res){ //DELETE
         const {_id} = req.params;
         let poke = await Pokemon.findOne({_id});
         if (poke){

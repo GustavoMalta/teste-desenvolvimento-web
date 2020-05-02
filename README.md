@@ -10,6 +10,8 @@ Na primeira execução é necessário instalar as dependencias:
 Uma vez instaçado as dependencias execute o projeto com o comando:
 - npm start
 
+
+
 ##############################
 
 Olá Dev! Tudo bem?
