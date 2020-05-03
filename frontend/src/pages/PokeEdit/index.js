@@ -144,7 +144,7 @@ return(
           </div>             
           <input placeholder="Nome"
                   required
-                  className="form-control"
+                  className="form-control text-capitalize"
                   value={Name}
                   onChange={e=>setName(e.target.value)}/>
         </div>
@@ -163,12 +163,12 @@ return(
           <div className="input-group-prepend">
             <strong className="input-group-text">Type: </strong>  
           </div> 
-          <select value={Type_1} className="form-control" onChange={e=>setType_1(e.target.value)}>
+          <select value={Type_1} className="form-control text-capitalize" onChange={e=>setType_1(e.target.value)}>
             {Types.map(type =>(
                   <option  key={type} value={type}>{type}</option>
               ))}
           </select>
-          <select value={Type_2} className="form-control" onChange={e=>setType_2(e.target.value)}>
+          <select value={Type_2} className="form-control text-capitalize" onChange={e=>setType_2(e.target.value)}>
                   <option value=""></option>
             {Types.map(type =>(
                   <option  key={type} value={type}>{type}</option>
@@ -179,12 +179,12 @@ return(
           <div className="input-group-prepend">
             <strong className="input-group-text">Weather: </strong>  
           </div> 
-          <select value={Weather_1} className="form-control" onChange={e=>setWeather_1(e.target.value)}>
+          <select value={Weather_1} className="form-control text-capitalize" onChange={e=>setWeather_1(e.target.value)}>
             {Weather.map(weather =>(                 
                   <option  key={weather} value={weather}>{weather}</option>
               ))}
           </select>
-          <select value={Weather_2} className="form-control" onChange={e=>setWeather_2(e.target.value)}>
+          <select value={Weather_2} className="form-control text-capitalize" onChange={e=>setWeather_2(e.target.value)}>
                   <option value=""></option>
             {Weather.map(weather =>(
                   <option  key={weather} value={weather}>{weather}</option>
@@ -196,7 +196,7 @@ return(
             <strong className="input-group-text">ATK: </strong>  
             <input placeholder="ATK"
                     required
-                    className="form-control  p-0 text-center"
+                    className="form-control  p-0 text-center stats"
                     type="number"
                     value={ATK}
                     onChange={e=>setATK(e.target.value)}/>
@@ -206,7 +206,7 @@ return(
             <strong className="input-group-text">DEF: </strong>  
             <input placeholder="DEF"
                     required
-                    className="form-control  p-0 text-center"
+                    className="form-control  p-0 text-center stats"
                     type="number"
                     value={DEF}
                     onChange={e=>setDEF(e.target.value)}/>
@@ -216,7 +216,7 @@ return(
             <strong className="input-group-text">STA: </strong>
             <input placeholder="STA"
                     required
-                    className="form-control p-0 text-center"
+                    className="form-control p-0 text-center stats"
                     type="number"
                     value={STA}
                     onChange={e=>setSTA(e.target.value)}/>  
@@ -250,13 +250,13 @@ return(
           </div>
               <input placeholder="Generation"
                   required
-                  className="form-control"
+                  className="form-control stats"
                   type="number"
                   value={Generation}
                   onChange={e=>setGeneration(e.target.value)}/>
               <input placeholder="Evolution_Stage" className="text-capitalize"
                   required
-                  className="form-control"
+                  className="form-control stats"
                   value={Evolution_Stage}
                   onChange={e=>setEvolution_Stage(e.target.value)}/> 
           </div>
@@ -417,19 +417,19 @@ return(
           </div>
          <div className="input-group pb-2 col-12 col-md-6">
           <div className="input-group-prepend col-md-6 p-0 pr-1">
-            <strong className="input-group-text">At40: </strong>  
+            <strong className="input-group-text">@At40: </strong>  
             <input placeholder="At40"
                     required
-                    className="form-control"
+                    className="form-control w-50"
                     type="number"
                     value={At40}
                     onChange={e=>setAt40(e.target.value)}/>
           </div> 
-          <div className="input-group-prepend col-md-6 p-0">
-            <strong className="input-group-text">At39: </strong>  
+          <div className="input-group-prepend col-md-6 p-0  justify-content-end">
+            <strong className="input-group-text">@At39: </strong>  
             <input placeholder="At39"
                     required
-                    className="form-control"
+                    className="form-control w-50"
                     type="number"
                     value={At39}
                     onChange={e=>setAt39(e.target.value)}/>

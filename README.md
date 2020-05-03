@@ -4,13 +4,27 @@ Back end feito em Node.
 É necessario instlar primeiramente o Node. que pode ser baixado para qualser sistema em 
 - https://nodejs.org
 
-Na primeira execução é necessário instalar as dependencias:
-- npm -i
+O banco de dados é em MongoDB, tudo fica salvo Online
 
-Uma vez instaçado as dependencias execute o projeto com o comando:
-- npm start
+1 - Na pasta "/backend"
 
+    Apenas na primeira execução é necessário instalar as dependencias do BackEnd:
+    - npm -i
 
+    Uma vez instaçado as dependencias execute o Backend com o comando:
+    - npm start
+
+2- Na pasta "/frontend"
+
+    Apenas na primeira execução é necessário instalar as dependencias do FrontEnd:
+    - npm -i
+
+    Uma vez instaçado as dependencias execute o FrontEnd com o comando:
+    - npm start
+
+Se tudo deu certo ira abrir uma janela do Navegador com o sistema funcionando :D
+
+O sistema esta "Deployado" tambem no Heroku, em https://redfoxpokefront.herokuapp.com/
 
 ##############################
 
