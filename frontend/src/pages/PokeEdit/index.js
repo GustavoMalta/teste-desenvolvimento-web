@@ -250,13 +250,13 @@ return(
           </div>
               <input placeholder="Generation"
                   required
-                  className="form-control stats"
+                  className="form-control"
                   type="number"
                   value={Generation}
                   onChange={e=>setGeneration(e.target.value)}/>
               <input placeholder="Evolution_Stage" className="text-capitalize"
                   required
-                  className="form-control stats"
+                  className="form-control"
                   value={Evolution_Stage}
                   onChange={e=>setEvolution_Stage(e.target.value)}/> 
           </div>
