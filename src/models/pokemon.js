@@ -1,0 +1,36 @@
+const mongoose = require('mongoose');
+
+const PokeSchema = new mongoose.Schema({
+    Row:String,
+    Name:String,
+    Pokedex_Number:String,
+    Img_name:String,
+    Generation:String,
+    Evolution_Stage:String,
+    Evolved:String,
+    FamilyID:String,
+    Cross_Gen:String,
+    Type_1:String,
+    Type_2:String,
+    Weather_1:String,
+    Weather_2:String,
+    STAT_TOTAL:String,
+    ATK:String,
+    DEF:String,
+    STA:String,
+    Legendary:String,
+    Aquireable:String,
+    Spawns:String,
+    Regional:String,
+    Raidable:String,
+    Hatchable:String,
+    Shiny:String,
+    Nest:String,
+    New:String,
+    Not_Gettable:String,
+    Future_Evolve:String,
+    At40:String,
+    At39:String,
+});
+
+module.exports = mongoose.model('Pokemon', PokeSchema)
