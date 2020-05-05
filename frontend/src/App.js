@@ -7,7 +7,7 @@ function App(){
 
   return(
     <div id="app" className="col-12 d-flex justify-content-center">
-    
+
     <Routes/>
     </div>
   )
