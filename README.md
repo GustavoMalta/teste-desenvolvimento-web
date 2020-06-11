@@ -1,7 +1,7 @@
 # Teste de Desenvolvimento Web
 
 Usando o Git para clonar o projeto, use esse comando para baixar a branch correta:
-- git clone -b Gustavo-Malta https://github.com/GustavoMalta/teste-desenvolvimento-web/tree/Gustavo-Malta
+- git clone https://github.com/GustavoMalta/teste-desenvolvimento-web.git -b Gustavo-Malta
 
 Com o BackEnd feito em Node e o FrontEnd feito em ReactJS.
 É necessario instlar primeiramente o Node. que pode ser baixado para qualser sistema em 
