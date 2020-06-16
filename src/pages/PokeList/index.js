@@ -1,6 +1,8 @@
 import React,{useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 
+import { Pagination } from 'semantic-ui-react'
+
 import './styles.css';
 import { FiSearch} from 'react-icons/fi';
 import api from "../../services/api";
@@ -12,9 +14,9 @@ export default function PokeList(){
     const [pokemons, setPokemons] = useState([]);
     let [row, setRow] = useState(1);
     const [pages, setPages] = useState([]);
+    const [activePage, setActivePage] = useState(1);
     const [search, setSearch] = useState('')
     const [total, setTotal] = useState([]);
-
 
     //let Total //= localStorage.getItem('X-Total-Pokes');
 
@@ -37,7 +39,7 @@ export default function PokeList(){
         setRow(((page-1)*10)+1)
       }
       loadPokes();
-    },[page,search]);
+    },[page,search,activePage]);
 
     useEffect(() =>{
       async function search(e){
@@ -66,6 +68,10 @@ export default function PokeList(){
     console.log(pages)
     history.push('/page/'+x);
   }
+  async function onChange(e, pageInfo){
+    setActivePage(pageInfo.activePage);
+    history.push(`/page/${pageInfo.activePage}`);
+  };
 
   return(
     <div className="card my-5 shadow">
@@ -76,7 +82,6 @@ export default function PokeList(){
           <label className="input-group-text"><FiSearch/> Busca </label>  
         </div>            
         <input placeholder="Nome ou Codigo Pokedex"
-                required
                 className="form-control pr-0"
                 value={search}
                 onChange={e=>setSearch(e.target.value.toLowerCase())}/>
@@ -126,12 +131,19 @@ export default function PokeList(){
         </tbody>
       </table>
 
-      <div className="card-title d-flex justify-content-end p-3 m-0"> 
-        {pages.map(numero =>(
+      <div className="card-title d-flex justify-content-center p-3 m-0"> 
+        {/*pages.map(numero =>(
           <button type="button" className="btn btn-info mx-1" onClick={() =>handlePage(numero)}>
           {numero}
           </button>
-        ))}
+        ))*/}
+        <Pagination 
+          defaultActivePage={activePage}
+          className="ui pagination menu"
+          onPageChange={onChange}
+          totalPages={pages.length}
+          ellipsisItem={null}
+        />
       </div>
     </main>
     </div>

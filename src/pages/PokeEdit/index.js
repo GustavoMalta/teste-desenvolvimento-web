@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import { Button, Confirm } from 'semantic-ui-react'
 import {useParams, useHistory} from 'react-router-dom';
 
 import './styles.css';
-import { FiArrowLeftCircle, FiTrash2 } from 'react-icons/fi';
+import { FiSave, FiTrash2 } from 'react-icons/fi';
 import api from "../../services/api";
 import Form from '../Form'
 
@@ -14,21 +15,18 @@ export default function PokeEdit(){
 
   const {id} = useParams();
   const [_id]= useState(id);
+  const [dialog, setdialog]= useState(false);
   
   async function handleDelete(data){
-    console.log(data)
-    const response = await api.delete('/pokemon/'+data);
     
-    console.log(response.status);
-    history.push('/');
-  }
-  /**async function handleUpdate(data){
-    //const e = Event();
-   // e.preventDefault();
     console.log(data)
-    alert(data)
+    const response = await api.delete('/pokemon/'+_id);
+    
+    alert("Pokemon Deletado")
+    console.log(response.status);
+    history.push('/')
+  }
   
-  }*/
   async function handleUpdate(data){
 
     //const data = {Name,Pokedex_Number,Img_name,Generation,Evolution_Stage,Evolved,FamilyID,Cross_Gen,Type_1,Type_2,Weather_1,Weather_2,STAT_TOTAL,ATK,DEF,STA,Legendary,Aquireable,Spawns,Regional,Raidable,Hatchable,Shiny,Nest,New,Not_Gettable,Future_Evolve,At40,At39};
@@ -65,8 +63,22 @@ return(
           back={handleToDetail} 
           backText={"Voltar para os detalhes"}/>
 
-    <div className="d-flex justify-content-center pt-4">
-        <FiTrash2  onClick={() =>handleDelete(_id)}/>
+    <div className="d-flex btn justify-content-end text-danger p-4">
+
+        <div className="d-flex btn btn-danger justify-content-end" onClick={()=>setdialog(true)}>
+          <FiTrash2 className="my-1"/> 
+          <span> Excluir</span>
+        </div>
+        <Confirm
+          open={dialog}
+          onCancel={()=>setdialog(false)}
+          header="Deletar Pokemon"
+          content='Deseja realmente deletar?'
+          cancelButton='Cancelar'
+          confirmButton="Deletar"
+          onConfirm={()=>handleDelete()}
+          backText={"asdadas"}
+        />
     </div> 
 
   </div>     
