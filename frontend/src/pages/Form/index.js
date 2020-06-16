@@ -1,5 +1,5 @@
 import React,{ useEffect, useState} from 'react';
-import { FiArrowLeftCircle, FiTrash2 } from 'react-icons/fi';
+import { FiArrowLeftCircle, FiSave } from 'react-icons/fi';
 
 import api from "../../services/api";
 
@@ -105,7 +105,10 @@ export default function Form(Data){
               <FiArrowLeftCircle size={20} color="#17a2b8"/>{Data.backText}
             </span>
 
-            <button className="btn btn-success" type="submit">Salvar</button>
+            <button className="btn btn-success" type="submit">
+              <span>Salvar </span>
+              <FiSave/>
+            </button>
           </div>
       </div>
         

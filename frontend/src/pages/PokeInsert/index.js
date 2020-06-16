@@ -40,7 +40,7 @@ export default function PokeInsert(){
 
 return(
   
-  <div className="card my-5 col-md-7 col-12 shadow">
+  <div className="card my-5 col-md-7 col-12 shadow pb-4">
 
     <Form change={handleRegister} 
           back={handleToDetail} 
