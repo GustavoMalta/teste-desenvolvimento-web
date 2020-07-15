@@ -11,19 +11,19 @@ O banco de dados é em MongoDB, tudo fica salvo Online
 
 1 - Na pasta "/backend"
 
-    Apenas na primeira execução é necessário instalar as dependencias do BackEnd:
-    - npm -i
+Apenas na primeira execução é necessário instalar as dependencias do BackEnd:
+- npm -i
 
-    Uma vez instaçado as dependencias execute o Backend com o comando:
-    - npm start
+Uma vez instaçado as dependencias execute o Backend com o comando:
+- npm start
 
 2- Na pasta "/frontend"
 
-    Apenas na primeira execução é necessário instalar as dependencias do FrontEnd:
-    - npm -i
+Apenas na primeira execução é necessário instalar as dependencias do FrontEnd:
+- npm -i
 
-    Uma vez instaçado as dependencias execute o FrontEnd com o comando:
-    - npm start
+Uma vez instaçado as dependencias execute o FrontEnd com o comando:
+- npm start
 
 Se tudo deu certo ira abrir uma janela do Navegador com o sistema funcionando :D
 
