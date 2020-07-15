@@ -11,9 +11,6 @@ O banco de dados é em MongoDB, tudo fica salvo Online
 
 1 - Na pasta "/backend"
 
-There are a file .env.model, rename it to ".env", open it and put your secret key there like this
-- SECRET_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
-
 Apenas na primeira execução é necessário instalar as dependencias do BackEnd:
 - npm -i
 
